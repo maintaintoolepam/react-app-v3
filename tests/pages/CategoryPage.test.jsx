@@ -20,9 +20,9 @@ describe('Category pages (BDD)', () => {
     const user = userEvent.setup();
     renderWithProviders(<App />, { route: '/category/shoes', auth: { initialUser: adminUser }, cart: { initialCount: 0 } });
 
-    expect(screen.getByLabelText('Cart items: 0')).toBeInTheDocument();
+    expect(screen.getByLabelText('0 cart items')).toBeInTheDocument();
     await user.click(screen.getAllByRole('button', { name: 'Add to cart' })[0]);
-    expect(screen.getByLabelText('Cart items: 1')).toBeInTheDocument();
+    expect(screen.getByLabelText('1 cart items')).toBeInTheDocument();
     expect(screen.getByText('Item added to cart.')).toBeInTheDocument();
   });
 
