@@ -77,4 +77,11 @@ describe('LoginPage (BDD)', () => {
 
     expect(await screen.findByText('You made it!')).toBeInTheDocument();
   });
+
+  it('Given pre-locked account, When page renders, Then Login button is disabled and locked message is shown', () => {
+    renderWithProviders(<App />, { route: '/login', auth: { initialFailedAttempts: 3 } });
+
+    expect(screen.getByRole('button', { name: 'Login' })).toBeDisabled();
+    expect(screen.getByText('Account locked.')).toBeInTheDocument();
+  });
 });

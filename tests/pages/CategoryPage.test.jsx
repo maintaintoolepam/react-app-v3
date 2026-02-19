@@ -36,4 +36,11 @@ describe('Category pages (BDD)', () => {
     expect(await screen.findByText('Welcome to Clothes section.')).toBeInTheDocument();
     expect(screen.queryByText('Welcome to Shoes section.')).not.toBeInTheDocument();
   });
+
+  it('Given unknown category key, When page renders, Then "Unknown category." error is shown', () => {
+    renderWithProviders(<App />, { route: '/category/nonexistent', auth: { initialUser: adminUser } });
+
+    expect(screen.getByRole('heading', { name: 'Category' })).toBeInTheDocument();
+    expect(screen.getByText('Unknown category.')).toBeInTheDocument();
+  });
 });

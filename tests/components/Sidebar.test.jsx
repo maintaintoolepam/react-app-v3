@@ -24,4 +24,14 @@ describe('Sidebar (BDD)', () => {
     await user.click(screen.getByRole('button', { name: 'Logout' }));
     expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument();
   });
+
+  it('Given authenticated user, When clicking Profile nav link, Then profile page renders', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<App />, { route: '/dashboard', auth: { initialUser: MOCK_USER } });
+
+    await user.click(screen.getByRole('link', { name: 'Profile' }));
+
+    expect(await screen.findByRole('heading', { name: 'Profile' })).toBeInTheDocument();
+    expect(screen.getByDisplayValue('admin')).toBeInTheDocument();
+  });
 });
