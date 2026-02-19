@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, expect, it } from 'vitest';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../../src/App.jsx';
 import { renderWithProviders } from '../utils/render.jsx';
@@ -21,7 +21,9 @@ describe('Orders page (BDD)', () => {
       expect(await screen.findByLabelText('Loading')).toBeInTheDocument();
       expect(await screen.findByText('Loading…')).toBeInTheDocument();
 
-      expect(screen.queryByText('Loading…')).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.queryByText('Loading…')).not.toBeInTheDocument();
+      });
       expect(screen.getByText('No orders yet.')).toBeInTheDocument();
     },
     10_000,
