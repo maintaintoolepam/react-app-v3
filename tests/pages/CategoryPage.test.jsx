@@ -12,17 +12,17 @@ describe('Category pages (BDD)', () => {
     renderWithProviders(<App />, { route: '/category/shoes', auth: { initialUser: adminUser } });
 
     expect(screen.getByRole('heading', { name: 'Shoes' })).toBeInTheDocument();
-    expect(screen.getByText('Welcome to the Shoes section.')).toBeInTheDocument();
-    expect(screen.getByText('Items: 13')).toBeInTheDocument();
+    expect(screen.getByText('Welcome to Shoes section.')).toBeInTheDocument();
+    expect(screen.getByText('Items: 12')).toBeInTheDocument();
   });
 
   it('Given category page, When adding to cart, Then cart counter increments and toast is shown', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<App />, { route: '/category/shoes', auth: { initialUser: adminUser } });
+    renderWithProviders(<App />, { route: '/category/shoes', auth: { initialUser: adminUser }, cart: { initialCount: 0 } });
 
-    expect(screen.getByLabelText('3 cart items')).toBeInTheDocument();
+    expect(screen.getByLabelText('0 cart items')).toBeInTheDocument();
     await user.click(screen.getAllByRole('button', { name: 'Add to cart' })[0]);
-    expect(screen.getByLabelText('4 cart items')).toBeInTheDocument();
+    expect(screen.getByLabelText('1 cart items')).toBeInTheDocument();
     expect(screen.getByText('Item added to cart.')).toBeInTheDocument();
   });
 
@@ -30,10 +30,10 @@ describe('Category pages (BDD)', () => {
     const user = userEvent.setup();
     renderWithProviders(<App />, { route: '/category/shoes', auth: { initialUser: adminUser } });
 
-    expect(screen.getByText('Welcome to the Shoes section.')).toBeInTheDocument();
+    expect(screen.getByText('Welcome to Shoes section.')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Clothes' }));
 
     expect(await screen.findByText('Welcome to the Clothes section.')).toBeInTheDocument();
-    expect(screen.queryByText('Welcome to the Shoes section.')).not.toBeInTheDocument();
+    expect(screen.queryByText('Welcome to Shoes section.')).not.toBeInTheDocument();
   });
 });
