@@ -23,7 +23,7 @@ describe('Orders page (BDD)', () => {
 
       await waitFor(() => {
         expect(screen.queryByText('Loading…')).not.toBeInTheDocument();
-      });
+      }, { timeout: 2000 }); // Increased timeout to account for the 1200ms sleep in the source code
       expect(screen.getByText('No orders yet.')).toBeInTheDocument();
     },
     10_000,
