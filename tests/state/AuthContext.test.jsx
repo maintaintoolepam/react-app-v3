@@ -36,4 +36,20 @@ describe('AuthContext (BDD)', () => {
     expect(res.ok).toBe(false);
     expect(res.reason).toBe('LOCKED');
   });
+
+  it('Given authenticated user, When logging out, Then user is no longer authenticated', () => {
+    const { result } = renderHook(() => useAuth(), { wrapper });
+
+    act(() => {
+      result.current.attemptLogin({ username: 'admin', password: 'password123' });
+    });
+    expect(result.current.isAuthenticated).toBe(true);
+
+    act(() => {
+      result.current.logout();
+    });
+    expect(result.current.isAuthenticated).toBe(false);
+    expect(result.current.user).toBeNull();
+    expect(result.current.failedAttempts).toBe(0);
+  });
 });

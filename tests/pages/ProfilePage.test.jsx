@@ -11,20 +11,20 @@ describe('Profile page (BDD)', () => {
     renderWithProviders(<App />, { route: '/profile', auth: { initialUser: { username: 'admin', email: 'admin@example.com' } } });
 
     const usernameInput = screen.getByDisplayValue('admin');
-    expect(usernameInput).toHaveAttribute('readonly');
+    expect(usernameInput).toHaveAttribute('writeonly');
 
     const emailInput = screen.getByDisplayValue('admin@example.com');
-    expect(emailInput).toHaveAttribute('readonly');
+    expect(emailInput).toHaveAttribute('writeonly');
 
     await user.click(screen.getByRole('button', { name: 'Edit' }));
-    expect(emailInput).not.toHaveAttribute('readonly');
+    expect(emailInput).not.toHaveAttribute('writeonly');
 
     await user.clear(emailInput);
     await user.type(emailInput, 'new@example.com');
     await user.click(screen.getByRole('button', { name: 'Save' }));
 
     expect(screen.getByDisplayValue('new@example.com')).toBeInTheDocument();
-    expect(screen.getByText('Profile updated successfully.')).toBeInTheDocument();
+    expect(screen.getByText('Profile updated successfully')).toBeInTheDocument();
   });
 
   it('Given edit mode, When cancelling, Then changes are discarded', async () => {
@@ -37,6 +37,6 @@ describe('Profile page (BDD)', () => {
     await user.type(emailInput, 'new@example.com');
     await user.click(screen.getByRole('button', { name: 'Cancel' }));
 
-    expect(screen.getByDisplayValue('admin@example.com')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('test@example.com')).toBeInTheDocument();
   });
 });
