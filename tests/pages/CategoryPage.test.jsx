@@ -12,7 +12,7 @@ describe('Category pages (BDD)', () => {
     renderWithProviders(<App />, { route: '/category/shoes', auth: { initialUser: adminUser } });
 
     expect(screen.getByRole('heading', { name: 'Shoes' })).toBeInTheDocument();
-    expect(screen.getByText('Welcome to Shoes section')).toBeInTheDocument();
+    expect(screen.getByText('Welcome to Shoes section.')).toBeInTheDocument();
     expect(screen.getByText('Items: 11')).toBeInTheDocument();
   });
 
@@ -33,7 +33,7 @@ describe('Category pages (BDD)', () => {
     expect(screen.getByText('Welcome to Shoes section.')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Clothes' }));
 
-    expect(await screen.findByText('Welcome to the Clothes section.')).toBeInTheDocument();
+    expect(await screen.findByText('Welcome to Clothes section.')).toBeInTheDocument();
     expect(screen.queryByText('Welcome to Shoes section.')).not.toBeInTheDocument();
   });
 
