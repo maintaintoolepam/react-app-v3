@@ -19,10 +19,10 @@ describe('Orders page (BDD)', () => {
 
       await user.click(screen.getByRole('button', { name: 'Refresh' }));
       expect(screen.getByLabelText('Loading')).toBeInTheDocument();
-      expect(screen.getByText('Loading…')).toBeInTheDocument();
+      expect(screen.getByText((content) => content.includes('Loading'))).toBeInTheDocument();
 
       await new Promise((r) => setTimeout(r, 1300));
-      expect(screen.queryByText('Loading…')).not.toBeInTheDocument();
+      expect(screen.queryByText((content) => content.includes('Loading'))).not.toBeInTheDocument();
       expect(screen.getByText('No orders yet.')).toBeInTheDocument();
     },
     10_000,

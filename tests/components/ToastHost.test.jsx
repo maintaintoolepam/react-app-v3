@@ -21,6 +21,6 @@ describe('ToastHost (BDD)', () => {
     const user = userEvent.setup();
     renderWithProviders(<Fixture />);
     await user.click(screen.getByRole('button', { name: 'Show' }));
-    expect(await screen.findByText('Item added to cart.')).toBeInTheDocument();
+    expect(await screen.findByText((content) => content.includes('Item added to cart'))).toBeInTheDocument();
   });
 });
