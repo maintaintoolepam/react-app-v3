@@ -24,7 +24,7 @@ describe('Profile page (BDD)', () => {
     await user.click(screen.getByRole('button', { name: 'Save' }));
 
     expect(screen.getByDisplayValue('new@example.com')).toBeInTheDocument();
-    expect(screen.getByText('Profile updated successfully')).toBeInTheDocument();
+    expect(screen.getByText('Profile updated successfully.')).toBeInTheDocument();
   });
 
   it('Given edit mode, When cancelling, Then changes are discarded', async () => {

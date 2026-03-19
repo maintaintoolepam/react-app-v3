@@ -12,7 +12,7 @@ describe('Category pages (BDD)', () => {
     renderWithProviders(<App />, { route: '/category/shoes', auth: { initialUser: adminUser } });
 
     expect(screen.getByRole('heading', { name: 'Shoes' })).toBeInTheDocument();
-    expect(screen.getByText('Welcome to Shoes section')).toBeInTheDocument();
+    expect(screen.getByText('Welcome to Shoes section.')).toBeInTheDocument();
     expect(screen.getByText('Items: 11')).toBeInTheDocument();
   });
 
@@ -34,7 +34,7 @@ describe('Category pages (BDD)', () => {
     await user.click(screen.getByRole('button', { name: 'Clothes' }));
 
     expect(await screen.findByText('Welcome to Clothes section.')).toBeInTheDocument();
-    expect(screen.queryByText('Welcome to Shoes section')).not.toBeInTheDocument();
+    expect(screen.queryByText('Welcome to Shoes section.')).not.toBeInTheDocument();
   });
 
   it('Given unknown category key, When page renders, Then "Unknown category." error is shown', () => {
