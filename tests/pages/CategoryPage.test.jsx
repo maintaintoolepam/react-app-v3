@@ -13,7 +13,7 @@ describe('Category pages (BDD)', () => {
 
     expect(screen.getByRole('heading', { name: 'Shoes' })).toBeInTheDocument();
     expect(screen.getByText('Welcome to Shoes section.')).toBeInTheDocument();
-    expect(screen.getByText('Items: 11')).toBeInTheDocument();
+    expect(screen.getByText('Items: 3')).toBeInTheDocument();
   });
 
   it('Given category page, When adding to cart, Then cart counter increments and toast is shown', async () => {
