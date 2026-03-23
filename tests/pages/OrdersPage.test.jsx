@@ -18,11 +18,13 @@ describe('Orders page (BDD)', () => {
       expect(screen.getByText('No orders yet.')).toBeInTheDocument();
 
       await user.click(screen.getByRole('button', { name: 'Refresh' }));
-      expect(screen.getByLabelText('Loading')).toBeInTheDocument();
+      const spinner = screen.getByLabelText('Loading');
+      expect(spinner).toBeInTheDocument();
       expect(screen.getByText('Loading…')).toBeInTheDocument();
 
-      await waitForElementToBeRemoved(() => screen.queryByText('Loading…'));
+      await waitForElementToBeRemoved(spinner);
       expect(screen.queryByLabelText('Loading')).not.toBeInTheDocument();
+      expect(screen.queryByText('Loading…')).not.toBeInTheDocument();
       expect(screen.getByText('No orders yet.')).toBeInTheDocument();
     },
     10_000,
