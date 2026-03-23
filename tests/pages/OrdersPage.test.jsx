@@ -19,8 +19,8 @@ describe('Orders page (BDD)', () => {
 
       await user.click(screen.getByRole('button', { name: 'Refresh' }));
 
+      expect(await screen.findByText('Loading…')).toBeInTheDocument();
       expect(await screen.findByLabelText('Loading')).toBeInTheDocument();
-      expect(screen.getByText('Loading…')).toBeInTheDocument();
 
       expect(await screen.findByText('No orders yet.')).toBeInTheDocument();
       expect(screen.queryByText('Loading…')).not.toBeInTheDocument();

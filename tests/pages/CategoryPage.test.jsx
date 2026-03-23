@@ -11,7 +11,7 @@ describe('Category pages (BDD)', () => {
   it('Given shoes route, When page renders, Then shoes message and counter are shown', async () => {
     renderWithProviders(<App />, { route: '/category/shoes', auth: { initialUser: adminUser } });
 
-    expect(screen.getByRole('heading', { name: 'Shoes' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Shoes' })).toBeInTheDocument();
     expect(screen.getByText('Welcome to Shoes section.')).toBeInTheDocument();
     expect(screen.getByText('Items: 12')).toBeInTheDocument();
   });
@@ -44,7 +44,7 @@ describe('Category pages (BDD)', () => {
   it('Given unknown category key, When page renders, Then "Unknown category." error is shown', () => {
     renderWithProviders(<App />, { route: '/category/nonexistent', auth: { initialUser: adminUser } });
 
-    expect(screen.getByRole('heading', { name: 'Category' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Category' })).toBeInTheDocument();
     expect(screen.getByText('Unknown category.')).toBeInTheDocument();
   });
 });
