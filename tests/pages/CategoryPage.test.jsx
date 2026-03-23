@@ -12,7 +12,7 @@ describe('Category pages (BDD)', () => {
     renderWithProviders(<App />, { route: '/category/shoes', auth: { initialUser: adminUser } });
 
     expect(screen.getByRole('heading', { name: 'Shoes' })).toBeInTheDocument();
-    expect(screen.getByText('Welcome to Shoes section.')).toBeInTheDocument();
+    expect(screen.getByText('Welcome to the Shoes section.')).toBeInTheDocument();
     expect(screen.getByText('Items: 11')).toBeInTheDocument();
   });
 
@@ -27,18 +27,18 @@ describe('Category pages (BDD)', () => {
     expect(screen.getByLabelText('0 cart items')).toBeInTheDocument();
     await user.click(screen.getAllByRole('button', { name: 'Add to cart' })[0]);
     expect(screen.getByLabelText('1 cart items')).toBeInTheDocument();
-    expect(screen.getByText('Items added to cart.')).toBeInTheDocument();
+    expect(await screen.findByText('Item added to cart.')).toBeInTheDocument();
   });
 
   it('Given shoes page, When switching to clothes, Then only clothes content remains', async () => {
     const user = userEvent.setup();
     renderWithProviders(<App />, { route: '/category/shoes', auth: { initialUser: adminUser } });
 
-    expect(screen.getByText('Welcome to Shoes section.')).toBeInTheDocument();
+    expect(screen.getByText('Welcome to the Shoes section.')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Clothes' }));
 
     expect(await screen.findByText('Welcome to the Clothes section.')).toBeInTheDocument();
-    expect(screen.queryByText('Welcome to Shoes section.')).not.toBeInTheDocument();
+    expect(screen.queryByText('Welcome to the Shoes section.')).not.toBeInTheDocument();
   });
 
   it('Given unknown category key, When page renders, Then "Unknown category." error is shown', () => {
