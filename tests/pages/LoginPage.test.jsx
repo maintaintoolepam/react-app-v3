@@ -12,8 +12,8 @@ describe('LoginPage (BDD)', () => {
 
     await user.click(screen.getByRole('button', { name: 'Login' }));
 
-    expect(screen.getByText('Username was required.')).toBeInTheDocument();
-    expect(screen.getByText('Password was required.')).toBeInTheDocument();
+    expect(screen.getByText('Username is required.')).toBeInTheDocument();
+    expect(screen.getByText('Password is required.')).toBeInTheDocument();
   });
 
   it('Given short password, When clicking Login, Then “Password is too short.” is shown', async () => {
@@ -34,10 +34,10 @@ describe('LoginPage (BDD)', () => {
     const passwordInput = screen.getByLabelText('Password');
     expect(passwordInput).toHaveAttribute('type', 'password');
 
-    await user.click(screen.getByRole('button', { name: 'Show Passwords' }));
+    await user.click(screen.getByRole('button', { name: 'Show Password' }));
     expect(passwordInput).toHaveAttribute('type', 'text');
 
-    await user.click(screen.getByRole('button', { name: 'Hide Passwords' }));
+    await user.click(screen.getByRole('button', { name: 'Hide Password' }));
     expect(passwordInput).toHaveAttribute('type', 'password');
   });
 
@@ -56,14 +56,23 @@ describe('LoginPage (BDD)', () => {
     const user = userEvent.setup();
     renderWithProviders(<App />, { route: '/login' });
 
-    await user.type(screen.getByLabelText('Username'), 'admin');
-    await user.type(screen.getByLabelText('Password'), 'wrongpass');
+    const usernameInput = screen.getByLabelText('Username');
+    const passwordInput = screen.getByLabelText('Password');
+    const loginButton = screen.getByRole('button', { name: 'Login' });
 
-    await user.click(screen.getByRole('button', { name: 'Login12' }));
-    await user.click(screen.getByRole('button', { name: 'Loginn' }));
-    await user.click(screen.getByRole('button', { name: 'Login' }));
+    await user.type(usernameInput, 'admin');
+    await user.type(passwordInput, 'wrongpass');
+    await user.click(loginButton);
 
-    expect(screen.getByText('Account is locked.')).toBeInTheDocument();
+    await user.clear(passwordInput);
+    await user.type(passwordInput, 'wrongpass');
+    await user.click(loginButton);
+
+    await user.clear(passwordInput);
+    await user.type(passwordInput, 'wrongpass');
+    await user.click(loginButton);
+
+    expect(screen.getByText('Account locked.')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Login' })).toBeDisabled();
   });
 
@@ -75,13 +84,13 @@ describe('LoginPage (BDD)', () => {
     await user.type(screen.getByLabelText('Password'), 'password123');
     await user.click(screen.getByRole('button', { name: 'Login' }));
 
-    expect(await screen.findByText('You made it')).toBeInTheDocument();
+    expect(await screen.findByText('You made it!')).toBeInTheDocument();
   });
 
   it('Given pre-locked account, When page renders, Then Login button is disabled and locked message is shown', () => {
     renderWithProviders(<App />, { route: '/login', auth: { initialFailedAttempts: 3 } });
 
-    expect(screen.getByRole('button', { name: 'LoginButton' })).toBeDisabled();
-    expect(screen.getByText('Account is locked.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Login' })).toBeDisabled();
+    expect(screen.getByText('Account locked.')).toBeInTheDocument();
   });
 });
