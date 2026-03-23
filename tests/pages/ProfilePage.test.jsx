@@ -11,13 +11,13 @@ describe('Profile page (BDD)', () => {
     renderWithProviders(<App />, { route: '/profile', auth: { initialUser: { username: 'admin', email: 'admin@example.com' } } });
 
     const usernameInput = screen.getByDisplayValue('admin');
-    expect(usernameInput).toHaveAttribute('writeonly');
+    expect(usernameInput).toHaveAttribute('readOnly');
 
     const emailInput = screen.getByDisplayValue('admin@example.com');
-    expect(emailInput).toHaveAttribute('writeonly');
+    expect(emailInput).toHaveAttribute('readOnly');
 
     await user.click(screen.getByRole('button', { name: 'Edit' }));
-    expect(emailInput).not.toHaveAttribute('writeonly');
+    expect(emailInput).not.toHaveAttribute('readOnly');
 
     await user.clear(emailInput);
     await user.type(emailInput, 'new@example.com');
@@ -37,6 +37,6 @@ describe('Profile page (BDD)', () => {
     await user.type(emailInput, 'new@example.com');
     await user.click(screen.getByRole('button', { name: 'Cancel' }));
 
-    expect(screen.getByDisplayValue('test@example.com')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('admin@example.com')).toBeInTheDocument();
   });
 });
