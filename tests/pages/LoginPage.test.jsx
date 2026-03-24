@@ -34,7 +34,7 @@ describe('LoginPage (BDD)', () => {
     const passwordInput = screen.getByLabelText('Password');
     expect(passwordInput).toHaveAttribute('type', 'password');
 
-    await user.click(screen.getByRole('button', { name: 'Show Passwords' }));
+    await user.click(screen.getByRole('button', { name: 'Show Password' }));
     expect(passwordInput).toHaveAttribute('type', 'text');
 
     await user.click(screen.getByRole('button', { name: 'Hide Password' }));
