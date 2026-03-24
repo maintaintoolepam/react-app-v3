@@ -12,7 +12,7 @@ describe('Header (BDD)', () => {
     renderWithProviders(<Header />, { auth: { initialUser: MOCK_USER }, cart: { initialCount: 2 } });
 
     expect(screen.getByText('Welcome, admin!')).toBeInTheDocument();
-    expect(screen.getByLabelText('3 notifications')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Notifications' })).toHaveTextContent('3');
     expect(screen.getByLabelText('2 cart items')).toBeInTheDocument();
   });
 
