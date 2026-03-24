@@ -20,6 +20,8 @@ describe('Header (BDD)', () => {
     const user = userEvent.setup();
     renderWithProviders(<App />, { route: '/dashboard', auth: { initialUser: MOCK_USER } });
 
+    expect(screen.getByLabelText('0 cart items')).toBeInTheDocument();
+
     await user.click(screen.getByRole('button', { name: 'Accessories' }));
 
     expect(await screen.findByRole('heading', { name: 'Accessories' })).toBeInTheDocument();
