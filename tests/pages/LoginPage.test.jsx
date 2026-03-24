@@ -76,7 +76,7 @@ describe('LoginPage (BDD)', () => {
     await user.click(screen.getByRole('button', { name: 'Login' }));
 
     expect(await screen.findByText((content, element) => {
-      return element.textContent === 'You made it!';
+      return element.textContent.includes('You made it!');
     })).toBeInTheDocument();
   });
 

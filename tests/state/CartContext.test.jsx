@@ -31,4 +31,15 @@ describe('CartContext (BDD)', () => {
     act(() => result.current.reset());
     expect(result.current.count).toBe(0);
   });
+
+  it('Given cart with items, When rendering header, Then cart item count is displayed correctly', () => {
+    const customWrapper = ({ children }) => (
+      <CartProvider initialCount={3}>{children}</CartProvider>
+    );
+    const { result } = renderHook(() => useCart(), { wrapper: customWrapper });
+
+    expect(result.current.count).toBe(3);
+    const cartLabel = document.querySelector('[aria-label="3 cart items"]');
+    expect(cartLabel).toBeInTheDocument();
+  });
 });
