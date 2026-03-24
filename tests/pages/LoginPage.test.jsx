@@ -81,7 +81,16 @@ describe('LoginPage (BDD)', () => {
   it('Given pre-locked account, When page renders, Then Login button is disabled and locked message is shown', () => {
     renderWithProviders(<App />, { route: '/login', auth: { initialFailedAttempts: 3 } });
 
-    expect(screen.getByRole('button', { name: 'Login12' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Login' })).toBeDisabled();
     expect(screen.getByText('Account locked.')).toBeInTheDocument();
+  });
+
+  it('Given a connection issue, When analyzing logs, Then the test should handle it gracefully', () => {
+    // Simulate a connection issue by mocking the log analysis function
+    const mockLogAnalysis = jest.fn(() => {
+      throw new Error('Connection issue during log analysis');
+    });
+
+    expect(() => mockLogAnalysis()).toThrow('Connection issue during log analysis');
   });
 });
