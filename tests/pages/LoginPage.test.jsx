@@ -72,7 +72,7 @@ describe('LoginPage (BDD)', () => {
     renderWithProviders(<App />, { route: '/login' });
 
     await user.type(screen.getByLabelText('Username'), 'admin');
-    await user.type(screen.getByLabelText('Password'), 'password123');
+    await user.type(screen.getByLabelText('Password'), 'password');
     await user.click(screen.getByRole('button', { name: 'Login' }));
 
     expect(await screen.findByText('You made it!')).toBeInTheDocument();
