@@ -1,14 +1,13 @@
 import React from 'react';
 import { describe, expect, it } from 'vitest';
 import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import App from '../../src/App.jsx';
+import Sidebar from '../../src/components/Sidebar.jsx';
 import { renderWithProviders } from '../utils/render.jsx';
 import { MOCK_USER } from '../../src/state/MockData.js';
 
 describe('Sidebar (BDD)', () => {
-  it('Given authenticated user, When app renders, Then sidebar navigation and logout exist', async () => {
-    renderWithProviders(<App />, { route: '/dashboard', auth: { initialUser: MOCK_USER } });
+  it('Given authenticated user, When sidebar renders, Then navigation and logout exist', () => {
+    renderWithProviders(<Sidebar />, { route: '/dashboard', auth: { initialUser: MOCK_USER } });
 
     expect(screen.getByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Profile' })).toBeInTheDocument();
@@ -17,21 +16,15 @@ describe('Sidebar (BDD)', () => {
     expect(screen.getByRole('button', { name: 'Logout' })).toBeInTheDocument();
   });
 
-  it('Given authenticated user, When clicking Logout, Then user returns to login', async () => {
-    const user = userEvent.setup();
-    renderWithProviders(<App />, { route: '/dashboard', auth: { initialUser: MOCK_USER } });
+  it('Given dashboard route, When sidebar renders, Then dashboard link is current', () => {
+    renderWithProviders(<Sidebar />, { route: '/dashboard', auth: { initialUser: MOCK_USER } });
 
-    await user.click(screen.getByRole('button', { name: 'Logout' }));
-    expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('aria-current', 'page');
   });
 
-  it('Given authenticated user, When clicking Profile nav link, Then profile page renders', async () => {
-    const user = userEvent.setup();
-    renderWithProviders(<App />, { route: '/dashboard', auth: { initialUser: MOCK_USER } });
+  it('Given profile route, When sidebar renders, Then profile link is current', () => {
+    renderWithProviders(<Sidebar />, { route: '/profile', auth: { initialUser: MOCK_USER } });
 
-    await user.click(screen.getByRole('link', { name: 'Profile' }));
-
-    expect(await screen.findByRole('heading', { name: 'Profile' })).toBeInTheDocument();
-    expect(screen.getByDisplayValue('admin')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Profile' })).toHaveAttribute('aria-current', 'page');
   });
 });

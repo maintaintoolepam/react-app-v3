@@ -32,7 +32,7 @@ describe('AuthContext (BDD)', () => {
     expect(result.current.locked).toBe(true);
     expect(result.current.failedAttempts).toBe(3);
 
-    const res = result.current.attemptLogin({ username: 'admin', password: 'password' });
+    const res = result.current.attemptLogin({ username: 'admin', password: 'password123' });
     expect(res.ok).toBe(false);
     expect(res.reason).toBe('LOCKED');
   });
