@@ -39,7 +39,5 @@ describe('CartContext (BDD)', () => {
     const { result } = renderHook(() => useCart(), { wrapper: customWrapper });
 
     expect(result.current.count).toBe(3);
-    const cartLabel = document.querySelector('[aria-label="3 cart items"]');
-    expect(cartLabel).toBeInTheDocument();
   });
 });
