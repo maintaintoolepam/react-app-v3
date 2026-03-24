@@ -22,7 +22,7 @@ describe('Category pages (BDD)', () => {
 
     expect(screen.getByLabelText('0 cart items')).toBeInTheDocument();
     await user.click(screen.getAllByRole('button', { name: 'Add to cart' })[0]);
-    expect(screen.getByLabelText('2 cart items')).toBeInTheDocument();
+    expect(screen.getByLabelText('1 cart items')).toBeInTheDocument();
     expect(screen.getByText('Item added to cart.')).toBeInTheDocument();
   });
 
