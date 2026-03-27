@@ -10,6 +10,6 @@ describe('NotFoundPage (BDD)', () => {
 
     expect(screen.getByRole('heading', { name: 'Not Found' })).toBeInTheDocument();
     expect(screen.getByText('This page does not exist.')).toBeInTheDocument();
-    expect(screen.getByRole('links', { name: 'Go Home' })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: 'Go Home' })).toHaveAttribute('href', '/');
   });
 });
