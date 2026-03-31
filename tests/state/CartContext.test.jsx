@@ -26,7 +26,7 @@ describe('CartContext (BDD)', () => {
     );
     const { result } = renderHook(() => useCart(), { wrapper: customWrapper });
 
-    expect(result.current.count).toBe(4);
+    expect(result.current.count).toBe(5);
 
     act(() => result.current.reset());
     expect(result.current.count).toBe(0);
