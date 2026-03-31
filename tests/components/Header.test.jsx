@@ -18,7 +18,7 @@ describe('Header (BDD)', () => {
 
   it('Given authenticated user on dashboard, When clicking a category button, Then that category page renders', async () => {
     const user = userEvent.setup();
-    renderWithProviders(<App />, { route: '/dashboard', auth: { initialUser: MOCK_USER } });
+    renderWithProviders(<App />, { route: '/dashboard', auth: { initialUser: MOCK_USER }, cart: { initialCount: 0 } });
 
     expect(screen.getByLabelText('0 cart items')).toBeInTheDocument();
 
