@@ -14,6 +14,7 @@ describe('Header (BDD)', () => {
     expect(screen.getByText('Welcome, admin!')).toBeInTheDocument();
     expect(screen.getByLabelText('3 notifications')).toBeInTheDocument();
     expect(screen.getByLabelText('3 cart items')).toBeInTheDocument();
+    expect(screen.getByText('3')).toBeInTheDocument(); // Validate visible count matches aria-label
   });
 
   it('Given authenticated user on dashboard, When clicking a category button, Then that category page renders', async () => {
