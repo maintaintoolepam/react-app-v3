@@ -34,11 +34,11 @@ describe('CartContext (BDD)', () => {
 
   it('Given cart with items, When checking aria-label, Then it matches the visible count', () => {
     const customWrapper = ({ children }) => (
-      <CartProvider initialCount={3}>{children}</CartProvider>
+      <CartProvider initialCount={1}>{children}</CartProvider>
     );
     const { result } = renderHook(() => useCart(), { wrapper: customWrapper });
 
-    expect(result.current.count).toBe(3);
+    expect(result.current.count).toBe(1);
     const ariaLabel = `Cart contains ${result.current.count} items`;
     expect(ariaLabel).toBe(`Cart contains ${result.current.count} items`);
   });
